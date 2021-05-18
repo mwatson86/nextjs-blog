@@ -1,7 +1,7 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
-import Layout from '../../components/layout'
-import Date from '../../components/date'
+import Layout from '../../components/layout';
+import Date from '../../components/date';
 
 import { getPostIds, getPostData } from '../../lib/posts';
 
