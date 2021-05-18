@@ -1,12 +1,12 @@
-import Image from 'next/image'
-import Head from 'next/head'
-import Link from 'next/Link'
+import Image from 'next/image';
+import Head from 'next/head';
+import Link from 'next/link';
 
-import styles from './layout.module.css'
-import utilStyles from '../styles/utils.module.css'
+import styles from './layout.module.css';
+import utilStyles from '../styles/utils.module.css';
 
-const name = 'Miles'
-export const siteTitle = 'Next.js Sample Website'
+const name = 'Miles';
+export const siteTitle = 'Next.js Sample Website';
 
 export default function Layout({ children, home }) {
   return (
