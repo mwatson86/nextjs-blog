@@ -6,13 +6,20 @@ import matter from 'gray-matter'
 
 const postDirectory = path.resolve(process.cwd(), 'posts');
 
+export type PostDataType = {
+  id: string;
+  contentHtml: string;
+  title?: string;
+  date?: string;
+};
+
 export function getPostIds() {
   const filenames = fs.readdirSync(postDirectory);
 
   return filenames.map(filename => filename.replace(/\.md$/, ''));
 };
 
-export async function getPostData(id) {
+export async function getPostData(id: string): Promise<PostDataType> {
   const pathToFile = path.resolve(postDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(pathToFile, 'utf8');
 
@@ -42,7 +49,7 @@ export async function getSortedPostsData() {
   );
 
   return postsData.sort((a, b) => {
-    if (a.date < b.date) {
+    if (a.date! < b.date!) {
       return 1
     } else {
       return -1

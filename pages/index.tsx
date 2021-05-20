@@ -6,7 +6,7 @@ import Date from '../components/date';
 
 import utilStyles from '../styles/utils.module.css';
 
-import { getSortedPostsData } from '../lib/posts';
+import { getSortedPostsData, PostDataType } from '../lib/posts';
 
 export async function getStaticProps() {
   const allPostsData = await getSortedPostsData();
@@ -18,7 +18,7 @@ export async function getStaticProps() {
   }
 }
 
-export default function Home({ allPostsData }) {
+export default function Home({ allPostsData }: { allPostsData: PostDataType[] }) {
   return (
     <Layout home>
       <Head>
@@ -39,10 +39,14 @@ export default function Home({ allPostsData }) {
             <Link href={`/posts/${id}`}>
               <a>{title}</a>
             </Link>
-            <br />
-            <small className={utilStyles.lightText}>
-              <Date dateString={date} />
-            </small>
+            {date &&
+              <>
+                <br />
+                <small className={utilStyles.lightText}>
+                  <Date dateString={date} />
+                </small>
+              </>
+            }
             </li>
           ))}
         </ul>

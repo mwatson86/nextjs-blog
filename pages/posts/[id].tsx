@@ -3,11 +3,17 @@ import Head from 'next/head';
 import Layout from '../../components/layout';
 import Date from '../../components/date';
 
-import { getPostIds, getPostData } from '../../lib/posts';
+import { getPostIds, getPostData, PostDataType } from '../../lib/posts';
 
 import utilStyles from '../../styles/utils.module.css';
 
-export async function getStaticPaths() {
+type PageType = {
+  params: {
+    id: string
+  }
+};
+
+export function getStaticPaths() {
   const paths = getPostIds().map(id => ({
     params: { id }
   }));
@@ -18,7 +24,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params }: PageType) {
   const postData = await getPostData(params.id);
 
   return {
@@ -28,17 +34,19 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function Post({ postData }) {
+export default function Post({ postData }: { postData: PostDataType }) {
   return (
     <Layout>
       <Head>
-        <title>{postData.title}</title>
+        <title>{postData.title} 123</title>
       </Head>
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
-        </div>
+        {postData.date &&
+          <div className={utilStyles.lightText}>
+            <Date dateString={postData.date} />
+          </div>
+        }
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>
     </Layout>
